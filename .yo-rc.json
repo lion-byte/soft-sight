@@ -1,0 +1,8 @@
+{
+  "generator-lionbyte": {
+    "name": "soft-sight",
+    "description": "Retrieve list of likely explicit followers",
+    "version": "0.0.0",
+    "projectType": "static-site"
+  }
+}

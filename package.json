@@ -1,0 +1,70 @@
+{
+  "name": "soft-sight",
+  "description": "Retrieve list of likely explicit followers",
+  "version": "0.0.0",
+  "author": {
+    "name": "Mark Hernandez",
+    "email": "markedcode@gmail.com"
+  },
+  "license": "MIT",
+  "bin": {},
+  "main": "src/index.js",
+  "scripts": {
+    "build": "gulp build",
+    "build:prod": "gulp build:prod",
+    "dev": "gulp",
+    "lint": "standard",
+    "lint:fix": "standard --fix",
+    "report": "nyc report --reporter=lcov",
+    "test": "standard && nyc mocha --require babel-register",
+    "test:ui": "babel-node test/ui"
+  },
+  "standard": {
+    "globals": [
+      "after",
+      "afterEach",
+      "before",
+      "beforeEach",
+      "describe",
+      "fixture",
+      "it",
+      "test"
+    ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.1.6",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "browser-sync": "^2.18.13",
+    "chai": "^4.1.2",
+    "coveralls": "^3.0.0",
+    "cssnano": "^3.10.0",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "gulp-ejs": "^3.1.0",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-hub": "^0.8.0",
+    "gulp-less": "^3.3.2",
+    "gulp-plumber": "^1.1.0",
+    "gulp-postcss": "^7.0.0",
+    "gulp-sequence": "^0.4.6",
+    "gulp-sourcemaps": "^2.6.1",
+    "mocha": "^4.0.1",
+    "nyc": "^11.3.0",
+    "standard": "^10.0.3",
+    "webpack": "^3.10.0",
+    "webpack-merge": "^4.1.1",
+    "webpack-stream": "^4.0.0"
+  },
+  "dependencies": {
+    "mini.css": "^2.3.7",
+    "mini.css-react": "^1.0.3",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1"
+  }
+}
