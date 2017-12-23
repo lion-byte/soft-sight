@@ -8,12 +8,10 @@ import browserSync from 'browser-sync'
 import cssnano from 'cssnano'
 
 gulp.task('styles', () => {
-  let processors = [
-    autoprefixer(),
-    cssnano()
-  ]
+  let processors = [autoprefixer(), cssnano()]
 
-  return gulp.src('../styles/*.less')
+  return gulp
+    .src('../styles/*.less')
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(less())

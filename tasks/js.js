@@ -13,7 +13,8 @@ modes.map(mode => {
     let config = configDev
     if (mode === 'prod') config = configProd
 
-    return gulp.src('../src/*.js')
+    return gulp
+      .src('../src/*.js')
       .pipe(plumber())
       .pipe(webpackStream(config, webpack))
       .pipe(gulp.dest('../dist/js'))
