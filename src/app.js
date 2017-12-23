@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import { UserBlogs } from './components'
 
 export class App extends Component {
   render () {
     return (
       <div>
-        <h1 className='app-title'>App</h1>
+        <h2>User Blogs</h2>
+        <UserBlogs />
       </div>
     )
   }
