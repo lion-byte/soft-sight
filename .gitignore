@@ -1,5 +1,6 @@
-# Babel Compiled Output
+# Babel/Webpack Compiled Output
 dist/
+public/
 
 # Logs
 logs

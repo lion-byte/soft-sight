@@ -10,8 +10,5 @@ gulp.task('watch', () => {
   gulp.watch(path.join(__dirname, '../src/**/*.js'), ['js:dev'])
   gulp.watch(path.join(__dirname, '../styles/**/*.less'), ['styles'])
   gulp.watch(path.join(__dirname, '../pages/**/*.ejs'), ['pages'])
-  gulp.watch(
-    path.join(__dirname, '../dist/public/**/*.html'),
-    browserSync.reload
-  )
+  gulp.watch(path.join(__dirname, '../public/**/*.html'), browserSync.reload)
 })

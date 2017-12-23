@@ -22,6 +22,6 @@ gulp.task('pages', () => {
         collapseWhitespace: true
       })
     )
-    .pipe(gulp.dest('../dist/public'))
+    .pipe(gulp.dest('../public'))
     .pipe(browserSync.stream())
 })
