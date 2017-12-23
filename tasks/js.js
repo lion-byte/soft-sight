@@ -17,7 +17,7 @@ modes.map(mode => {
       .src('../src/*.js')
       .pipe(plumber())
       .pipe(webpackStream(config, webpack))
-      .pipe(gulp.dest('../dist/js'))
+      .pipe(gulp.dest('../dist/public/js'))
       .pipe(browserSync.stream())
   })
 })

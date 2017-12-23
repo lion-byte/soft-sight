@@ -4,3 +4,4 @@ import App from './App'
 
 render(<App />, document.getElementById('root'))
 console.log('Index loaded')
+console.log('Hewwo?')

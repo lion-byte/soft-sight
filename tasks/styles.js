@@ -17,6 +17,6 @@ gulp.task('styles', () => {
     .pipe(less())
     .pipe(postcss(processors))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('../dist/css'))
+    .pipe(gulp.dest('../dist/public/css'))
     .pipe(browserSync.stream())
 })

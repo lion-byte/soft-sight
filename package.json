@@ -12,10 +12,13 @@
   "scripts": {
     "build": "gulp build",
     "build:prod": "gulp build:prod",
+    "build:server": "babel lib --out-dir dist/lib",
     "dev": "gulp",
     "lint": "standard",
-    "lint:fix": "prettier src/**/*.js --write && standard --fix",
+    "lint:fix": "prettier **/*.js --write && standard --fix",
     "report": "nyc report --reporter=lcov",
+    "serve": "node dist/lib/index",
+    "start": "nodemon lib/index --exec babel-node",
     "test": "standard && nyc mocha --require babel-register",
     "test:ui": "babel-node test/ui"
   },
@@ -55,6 +58,7 @@
     "gulp-sequence": "^0.4.6",
     "gulp-sourcemaps": "^2.6.1",
     "mocha": "^4.0.1",
+    "nodemon": "^1.14.3",
     "nyc": "^11.3.0",
     "prettier": "^1.9.2",
     "standard": "^10.0.3",
@@ -63,8 +67,12 @@
     "webpack-stream": "^4.0.0"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
+    "debug": "^3.1.0",
+    "express": "^4.16.2",
     "mini.css": "^2.3.7",
     "mini.css-react": "^1.0.3",
+    "morgan": "^1.9.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1"
   }

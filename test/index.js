@@ -1,4 +1,4 @@
-import {expect} from 'chai'
+import { expect } from 'chai'
 
 describe('starter', () => {
   it('should be okay', () => {

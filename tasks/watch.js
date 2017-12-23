@@ -4,11 +4,14 @@ import path from 'path'
 
 gulp.task('watch', () => {
   browserSync.init({
-    server: path.resolve(__dirname, '../dist')
+    server: path.resolve(__dirname, '../dist/public')
   })
 
-  gulp.watch('../src/**/*.js', ['js:dev'])
-  gulp.watch('../styles/**/*.less', ['styles'])
-  gulp.watch('../pages/**/*.ejs', ['pages'])
-  gulp.watch('../dist/**/*.html', browserSync.reload)
+  gulp.watch(path.join(__dirname, '../src/**/*.js'), ['js:dev'])
+  gulp.watch(path.join(__dirname, '../styles/**/*.less'), ['styles'])
+  gulp.watch(path.join(__dirname, '../pages/**/*.ejs'), ['pages'])
+  gulp.watch(
+    path.join(__dirname, '../dist/public/**/*.html'),
+    browserSync.reload
+  )
 })
