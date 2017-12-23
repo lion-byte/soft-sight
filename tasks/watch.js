@@ -4,7 +4,8 @@ import path from 'path'
 
 gulp.task('watch', () => {
   browserSync.init({
-    server: path.resolve(__dirname, '../dist/public')
+    server: path.resolve(__dirname, '../public'),
+    port: 4000
   })
 
   gulp.watch(path.join(__dirname, '../src/**/*.js'), ['js:dev'])
