@@ -1,3 +1,4 @@
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 import merge from 'webpack-merge'
 import webpack from 'webpack'
 import common from './webpack.common'
@@ -6,7 +7,7 @@ const config = merge(common, {
   devtool: 'source-map',
 
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
+    new UglifyJsPlugin({
       sourceMap: true
     }),
     new webpack.DefinePlugin({
