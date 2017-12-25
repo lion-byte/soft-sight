@@ -43,16 +43,18 @@ Return all follower usernames
 }
 ```
 
-## Post `api/blog` [Credentials needed]
+## Post `api/blogs` [Credentials needed]
 Return blog data for up to 20 usernames
 ```
 {
-  name: String,
-  title: String,
-  url: String,
-  description: String,
-  isAdult: Boolean,
-  isNSFW: Boolean,
-  isFollowing: Boolean
+  blogs (Array): {
+    name: String,
+    title: String,
+    url: String,
+    description: String,
+    isAdult: Boolean,
+    isNSFW: Boolean,
+    isFollowing: Boolean
+  }
 }
 ```
