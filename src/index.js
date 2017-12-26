@@ -1,7 +1,9 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { App } from './app'
+import { isAuth } from './api'
 
 render(<App />, document.getElementById('root'))
 console.log('Index loaded')
-console.log('Hewwo?')
+
+isAuth().then(console.log)
