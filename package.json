@@ -13,6 +13,7 @@
     "build": "gulp build && npm run build:server",
     "build:prod": "gulp build:prod && npm run build:server",
     "build:server": "babel lib --out-dir dist",
+    "build:static": "gulp build:quick",
     "clean": "gulp clean",
     "dev": "gulp",
     "lint": "standard",
