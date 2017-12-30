@@ -1,6 +1,6 @@
 export const errorCatch = err => console.error(err)
 
-export const apiFetch = async url => {
+export const apiFetchGet = async url => {
   try {
     return await (await window.fetch(url, {
       credentials: 'same-origin'
@@ -10,7 +10,7 @@ export const apiFetch = async url => {
   }
 }
 
-export const apiRequest = async (url, body) => {
+export const apiFetchPost = async (url, body) => {
   try {
     return await (await window.fetch(url, {
       body,
@@ -25,9 +25,9 @@ export const apiRequest = async (url, body) => {
   }
 }
 
-export const dataGrab = async (url, defaultData = null) => {
+export const getData = async (url, defaultData = null) => {
   try {
-    const data = await apiFetch(url)
+    const data = await apiFetchGet(url)
     const { error } = data
 
     if (error) {
@@ -41,9 +41,9 @@ export const dataGrab = async (url, defaultData = null) => {
   }
 }
 
-export const dataFetch = async (url, body = {}, defaultData = null) => {
+export const postData = async (url, body = {}, defaultData = null) => {
   try {
-    const data = await apiRequest(url, JSON.stringify(body))
+    const data = await apiFetchPost(url, JSON.stringify(body))
     const { error } = data
 
     if (error) {
