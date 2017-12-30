@@ -1,7 +1,14 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { App } from './app'
+import { isAuth } from './api'
+import { dataFetch } from './utils'
 
 render(<App />, document.getElementById('root'))
 console.log('Index loaded')
-console.log('Hewwo?')
+
+isAuth().then(console.log)
+
+dataFetch('/api/blogs', { blogs: ['hello'] }, { response: 'nothing' }).then(
+  console.log
+)
