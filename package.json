@@ -84,6 +84,6 @@
     "passport-tumblr": "^0.1.2",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
-    "tumblr": "^0.4.1"
+    "tumblr.js": "^1.1.1"
   }
 }
