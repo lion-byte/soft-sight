@@ -9,6 +9,6 @@ console.log('Index loaded')
 
 isAuth().then(console.log)
 
-dataFetch('/api/blogs', { msg: 'hello' }, { response: 'nothing' }).then(
+dataFetch('/api/blogs', { blogs: ['hello'] }, { response: 'nothing' }).then(
   console.log
 )
