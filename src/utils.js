@@ -56,3 +56,8 @@ export const postData = async (url, body = {}, defaultData = null) => {
     return defaultData
   }
 }
+
+export const sleep = ms =>
+  new Promise(resolve => {
+    setTimeout(resolve, ms)
+  })
