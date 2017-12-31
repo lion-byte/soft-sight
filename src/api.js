@@ -9,9 +9,9 @@ export const isAuth = async () => {
 
 export const getUserInfo = async () => {
   const defaultValue = {}
-  const {name, blogs} = await getData('/api/user', defaultValue)
+  const result = await getData('/api/user', defaultValue)
 
-  return {name, blogs}
+  return result
 }
 
 export const getUserBlogInfo = async blogname => {
@@ -22,15 +22,19 @@ export const getUserBlogInfo = async blogname => {
 }
 
 export const getUserBlogFollowers = async (blogname, offset = 0) => {
-  const defaultValue = {}
-  const {followers} = await postData(`/api/user/${blogname}/followers`, {offset}, defaultValue)
+  const defaultValue = { followers: [] }
+  const { followers } = await postData(
+    `/api/user/${blogname}/followers`,
+    { offset },
+    defaultValue
+  )
 
   return followers
 }
 
 export const getBlogInfo = async blogname => {
   const defaultValue = {}
-  const result = await postData('/api/blog', {blogname}, defaultValue)
+  const result = await postData('/api/blog', { blogname }, defaultValue)
 
   return result
 }
