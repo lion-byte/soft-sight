@@ -10,17 +10,17 @@
   "bin": {},
   "main": "src/index.js",
   "scripts": {
-    "build": "gulp build && npm run build:server",
-    "build:prod": "gulp build:prod && npm run build:server",
-    "build:server": "babel lib --out-dir dist",
-    "build:static": "gulp build:quick",
+    "build": "gulp build",
+    "build:prod": "gulp build:prod",
+    "build:server": "gulp build:server",
+    "build:public": "gulp build:public",
     "clean": "gulp clean",
     "dev": "gulp",
     "lint": "standard",
     "lint:fix": "prettier **/*.js --write && standard --fix",
     "report": "nyc report --reporter=lcov",
     "serve": "node dist/index",
-    "start": "nodemon lib/index --exec babel-node",
+    "start": "nodemon lib/index --watch lib",
     "test": "standard && nyc mocha --require babel-register",
     "test:ui": "babel-node test/ui"
   },
@@ -35,6 +35,12 @@
       "it",
       "test"
     ]
+  },
+  "nodemonConfig": {
+    "delay": 2500,
+    "execMap": {
+      "js": "babel-node"
+    }
   },
   "devDependencies": {
     "autoprefixer": "^7.1.6",
@@ -84,6 +90,7 @@
     "passport-tumblr": "^0.1.2",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
+    "react-router-dom": "^4.2.2",
     "tumblr.js": "^1.1.1"
   }
 }

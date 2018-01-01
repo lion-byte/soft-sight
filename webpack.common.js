@@ -7,7 +7,8 @@ const options = {
     vendor: [
       'mini.css-react',
       'react',
-      'react-dom'
+      'react-dom',
+      'react-router-dom'
     ]
   },
 
