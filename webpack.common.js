@@ -8,7 +8,8 @@ const options = {
       'mini.css-react',
       'react',
       'react-dom',
-      'react-router-dom'
+      'react-router-dom',
+      'typed.js'
     ]
   },
 

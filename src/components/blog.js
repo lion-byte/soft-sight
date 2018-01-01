@@ -12,7 +12,11 @@ export class Blog extends Component {
             <small>{url}</small>
             <small>{title}</small>
           </h4>
-          <p className='description'>{description}</p>
+          {
+            description
+            ? <p className='description'>{description}</p>
+            : <p className='description'><i><small>No description</small></i></p>
+          }
         </section>
       </section>
     )
