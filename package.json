@@ -91,6 +91,7 @@
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-router-dom": "^4.2.2",
-    "tumblr.js": "^1.1.1"
+    "tumblr.js": "^1.1.1",
+    "typed.js": "^2.0.6"
   }
 }

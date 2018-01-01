@@ -2,6 +2,10 @@ import gulp from 'gulp'
 import browserSync from 'browser-sync'
 import path from 'path'
 
+const watchOptions = {
+  delay: 2500
+}
+
 gulp.task('watch', () => {
   browserSync.init({
     server: path.resolve(__dirname, '../public'),
@@ -11,8 +15,16 @@ gulp.task('watch', () => {
     }
   })
 
-  gulp.watch(path.join(__dirname, '../src/**/*.js'), ['transpile:dev'])
-  gulp.watch(path.join(__dirname, '../styles/**/*.less'), ['styles'])
-  gulp.watch(path.join(__dirname, '../pages/**/*.ejs'), ['pages'])
-  gulp.watch(path.join(__dirname, '../public/**/*.html'), browserSync.reload)
+  gulp.watch(path.join(__dirname, '../src/**/*.js'), watchOptions, [
+    'transpile:dev'
+  ])
+  gulp.watch(path.join(__dirname, '../styles/**/*.less'), watchOptions, [
+    'styles'
+  ])
+  gulp.watch(path.join(__dirname, '../pages/**/*.ejs'), watchOptions, ['pages'])
+  gulp.watch(
+    path.join(__dirname, '../public/**/*.html'),
+    watchOptions,
+    browserSync.reload
+  )
 })
