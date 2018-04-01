@@ -6,11 +6,15 @@ export const instance = create({
   timeout: 10000
 })
 
-export const requestBlogInfo = async blogName => {
-  const { data } = await instance.post('/tumblr', {
-    blogName
+export const requestBlogInfo = blogName => {
+  return new Promise((resolve, reject) => {
+    instance
+      .post('/tumblr', {
+        blogName
+      })
+      .then(({ data }) => resolve(data))
+      .catch(reject)
   })
-  return data
 }
 
 export const sleep = ms =>
