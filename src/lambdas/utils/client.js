@@ -12,15 +12,8 @@ const getClient = () => {
   })
 }
 
-const getBlogInfo = async blogName => {
-  const client = getClient()
-
-  try {
-    const result = await client.blogInfo(blogName)
-    return result
-  } catch (error) {
-    throw error
-  }
+const getBlogInfo = blogName => {
+  return getClient().blogInfo(blogName)
 }
 
 module.exports = {

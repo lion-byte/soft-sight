@@ -1,23 +1,38 @@
-const path = require('path')
 const { config } = require('dotenv')
 
 config()
 
-const { tumblr } = require('./lib')
+const { client: { getBlogInfo } } = require('./utils')
 
 exports.handler = (event, context, callback) => {
-  const api = event.path.split(path.sep).splice(2)
+  console.log(event)
 
-  switch (api[0]) {
-    case 'tumblr':
-      tumblr(event, context, callback)
-      break
-    default:
-      callback(null, {
-        statusCode: 200,
-        body: JSON.stringify({
-          msg: 'Hmm'
+  if (event.httpMethod === 'POST') {
+    const { body: bodyText } = event
+    const { blogName } = JSON.parse(bodyText)
+    console.log(blogName)
+
+    getBlogInfo(blogName)
+      .then(data => {
+        console.log(data)
+
+        callback(null, {
+          statusCode: 200,
+          body: JSON.stringify(data)
         })
       })
+      .catch(error => {
+        console.error(error)
+
+        callback(null, {
+          statusCode: 200,
+          body: JSON.stringify({ error: error.toString() })
+        })
+      })
+  } else {
+    callback(null, {
+      statusCode: 200,
+      body: JSON.stringify({ error: 'Not here dude' })
+    })
   }
 }

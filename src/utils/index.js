@@ -1,11 +1,10 @@
 import { create } from 'axios'
-import { resolve } from 'path'
 
 export const instance = () =>
   create({
     baseURL:
       process.env.NODE_ENV === 'production'
-        ? resolve(window.location.toString(), '/.netlify/functions/api')
+        ? '/.netlify/functions/api'
         : '/api',
     timeout: 10000
   })
@@ -13,7 +12,7 @@ export const instance = () =>
 export const requestBlogInfo = blogName => {
   return new Promise((resolve, reject) => {
     instance()
-      .post('/tumblr', {
+      .post('/', {
         blogName
       })
       .then(({ data }) => resolve(data))
