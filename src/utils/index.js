@@ -5,14 +5,14 @@ export const instance = () =>
     baseURL:
       process.env.NODE_ENV === 'production'
         ? '/.netlify/functions/api'
-        : '/api',
+        : '/api/',
     timeout: 10000
   })
 
 export const requestBlogInfo = blogName => {
   return new Promise((resolve, reject) => {
     instance()
-      .post('/', {
+      .post('', {
         blogName
       })
       .then(({ data }) => resolve(data))
