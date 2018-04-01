@@ -1,6 +1,7 @@
-# Babel/Webpack Compiled Output
-dist/
+# Compiled Output
+lambda/
 public/
+.cache/
 
 # Logs
 logs
@@ -60,3 +61,6 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# Other stuff
+.DS_Store

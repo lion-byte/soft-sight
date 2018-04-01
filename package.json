@@ -4,25 +4,29 @@
   "version": "0.0.0",
   "author": {
     "name": "Mark Hernandez",
-    "email": "markedcode@gmail.com"
+    "email": "mark@lion-byte.com",
+    "url": "https://www.lion-byte.com/"
   },
+  "main": "n/a",
   "license": "MIT",
-  "bin": {},
-  "main": "src/index.js",
   "scripts": {
-    "build": "gulp build",
-    "build:prod": "gulp build:prod",
-    "build:server": "gulp build:server",
-    "build:public": "gulp build:public",
-    "clean": "gulp clean",
-    "dev": "gulp",
-    "lint": "standard",
-    "lint:fix": "prettier **/*.js --write && standard --fix",
+    "build": "gatsby build",
+    "build:lambda": "netlify-lambda build src/lambdas",
+    "dev": "gatsby develop",
+    "dev:lambda": "netlify-lambda serve src/lambdas",
+    "format": "prettier **/*.js --write --ignore-path .gitignore && standard --fix",
+    "format:styles": "prettier src/styles/*.less --write",
+    "format:docs": "prettier *.md --write",
     "report": "nyc report --reporter=lcov",
-    "serve": "node dist/index",
-    "start": "nodemon lib/index --watch lib",
-    "test": "standard && nyc mocha --require babel-register",
-    "test:ui": "babel-node test/ui"
+    "test": "standard && nyc mocha"
+  },
+  "proxy": {
+    "/.netlify/functions": {
+      "target": "http://localhost:9000",
+      "pathRewrite": {
+        "^/\\.netlify/functions": ""
+      }
+    }
   },
   "standard": {
     "globals": [
@@ -31,67 +35,58 @@
       "before",
       "beforeEach",
       "describe",
-      "fixture",
-      "it",
-      "test"
+      "graphql",
+      "it"
     ]
   },
-  "nodemonConfig": {
-    "delay": 2500,
-    "execMap": {
-      "js": "babel-node"
+  "husky": {
+    "hooks": {
+      "pre-commit": [
+        "lint-staged"
+      ]
     }
   },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "standard --fix",
+      "git add"
+    ],
+    "*.{md,less}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  },
   "devDependencies": {
-    "autoprefixer": "^7.1.6",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-register": "^6.26.0",
-    "browser-sync": "^2.18.13",
     "chai": "^4.1.2",
     "coveralls": "^3.0.0",
-    "cssnano": "^3.10.0",
-    "del": "^3.0.0",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^7.0.0",
-    "gulp-ejs": "^3.1.0",
-    "gulp-htmlmin": "^3.0.0",
-    "gulp-hub": "^0.8.0",
-    "gulp-less": "^3.3.2",
-    "gulp-plumber": "^1.1.0",
-    "gulp-postcss": "^7.0.0",
-    "gulp-sequence": "^0.4.6",
-    "gulp-sourcemaps": "^2.6.1",
-    "mocha": "^4.0.1",
-    "nodemon": "^1.14.3",
-    "nyc": "^11.3.0",
-    "prettier": "^1.9.2",
-    "standard": "^10.0.3",
-    "uglifyjs-webpack-plugin": "^1.1.4",
-    "webpack": "^3.10.0",
-    "webpack-merge": "^4.1.1",
-    "webpack-stream": "^4.0.0"
+    "husky": "^0.15.0-rc.13",
+    "lint-staged": "^7.0.1",
+    "mocha": "^5.0.5",
+    "nyc": "^11.6.0",
+    "prettier": "^1.11.1",
+    "standard": "^11.0.1"
   },
   "dependencies": {
-    "body-parser": "^1.18.2",
-    "connect-mongo": "^2.0.0",
-    "cookie-parser": "^1.4.3",
-    "debug": "^3.1.0",
+    "axios": "^0.18.0",
     "dotenv": "^4.0.0",
-    "express": "^4.16.2",
-    "express-session": "^1.15.6",
-    "mini.css": "^2.3.7",
-    "mini.css-react": "^1.0.3",
-    "morgan": "^1.9.0",
+    "gatsby": "^1.9.243",
+    "gatsby-link": "^1.6.40",
+    "gatsby-plugin-catch-links": "^1.0.19",
+    "gatsby-plugin-less": "^1.1.8",
+    "gatsby-plugin-netlify": "^1.0.19",
+    "gatsby-plugin-react-helmet": "^2.0.8",
+    "gatsby-plugin-react-next": "^1.0.11",
+    "milligram": "^1.3.0",
+    "moment": "^2.22.0",
+    "netlify-lambda": "^0.3.0",
     "passport": "^0.4.0",
     "passport-tumblr": "^0.1.2",
-    "react": "^16.1.1",
-    "react-dom": "^16.1.1",
-    "react-router-dom": "^4.2.2",
-    "tumblr.js": "^1.1.1",
-    "typed.js": "^2.0.6"
+    "react-helmet": "^5.2.0",
+    "tumblr.js": "^1.1.1"
   }
 }
