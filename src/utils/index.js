@@ -1,8 +1,11 @@
 import { create } from 'axios'
+import { join } from 'path'
 
 export const instance = create({
   baseURL:
-    process.env.NODE_ENV === 'production' ? '/.netlify/functions/api' : '/api',
+    process.env.NODE_ENV === 'production'
+      ? join(window.location.toString(), '/.netlify/functions/api')
+      : '/api',
   timeout: 10000
 })
 
