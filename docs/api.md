@@ -1,7 +1,9 @@
 # REST API
 
 ## Get `api/`
+
 Check if the user is logged in.
+
 ```
 {
   isAuthenticated: Boolean
@@ -9,7 +11,9 @@ Check if the user is logged in.
 ```
 
 ## Get `api/user` [Credentials needed]
+
 Return relevant user data
+
 ```
 {
   username: String,
@@ -23,7 +27,9 @@ Return relevant user data
 ```
 
 ## Get `api/user/:blogname` [Credentials needed]
+
 Return blog data
+
 ```
 {
   name: String,
@@ -34,9 +40,10 @@ Return blog data
 }
 ```
 
-
 ## Get `api/user/:blogname/followers` [Credentials needed]
+
 Return all follower usernames
+
 ```
 {
   followers: Array<String>
@@ -44,7 +51,9 @@ Return all follower usernames
 ```
 
 ## Post `api/blogs` [Credentials needed]
+
 Return blog data for up to 20 usernames
+
 ```
 {
   blogs (Array): {
