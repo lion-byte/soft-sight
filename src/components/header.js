@@ -2,16 +2,33 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'gatsby-link'
 
-export const NavLink = ({ className, label, path }) => (
-  <Link className={`${className || ' button button-outline'}`} to={path}>
-    {label}
-  </Link>
-)
+export const NavLink = ({ className, external, label, path }) =>
+  external ? (
+    <a
+      className={`${className || ' button button-outline'}`}
+      href={path}
+      target='_blank'
+      rel='noopener noreferrer'
+    >
+      {label}
+    </a>
+  ) : (
+    <Link className={`${className || ' button button-outline'}`} to={path}>
+      {label}
+    </Link>
+  )
 
 NavLink.propTypes = {
   className: PropTypes.string,
+  external: PropTypes.bool,
   label: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired
+}
+
+NavLink.defaultProps = {
+  external: false,
+  label: 'Link',
+  path: '/'
 }
 
 export const Header = ({ className }) => (
@@ -23,6 +40,12 @@ export const Header = ({ className }) => (
         path='/'
       />
       <NavLink label='Home' path='/' />
+      <NavLink label='Contact' path='/contact' />
+      <NavLink
+        label='GitHub'
+        path='https://github.com/lion-byte/soft-sight'
+        external
+      />
     </nav>
   </header>
 )
