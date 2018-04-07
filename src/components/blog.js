@@ -9,25 +9,51 @@ import { unix } from 'moment'
 export const Blog = ({ blogName }) => (
   <section className='blog'>
     <Fetch
-      request={() => requestBlogInfo(blogName)}
+      request={requestBlogInfo}
+      requestArgs={[blogName]}
       child={BlogInner}
-      onError={() => (
-        <span>
-          Sorry, could not find <u>{blogName}</u>
-        </span>
-      )}
-      onLoading={() => (
-        <Fragment>
-          <h3>Loading...</h3>
-          <Loading />
-        </Fragment>
-      )}
+      onLoading={BlogLoading}
+      onError={BlogError}
     />
   </section>
 )
 
 Blog.propTypes = {
   blogName: PropTypes.string.isRequired
+}
+
+export const BlogLoading = () => (
+  <Fragment>
+    <h3>Loading...</h3>
+    <Loading />
+  </Fragment>
+)
+
+export const BlogError = ({ requestArgs: [blogName], error = '', retry }) => {
+  let errorText = error
+  let allowRetry = true
+
+  if (error.search(/404/g) !== -1) {
+    errorText = `This blog doesn't exist.`
+    allowRetry = false
+  } else if (error.search(/timeout/g) !== -1) {
+    errorText = `Check your network connection.`
+  }
+
+  return (
+    <p className='clearfix'>
+      <span className='float-left'>
+        Sorry, could not find Tumblr blog: <u>{blogName}</u>.
+        <br />
+        {errorText}
+      </span>
+      {allowRetry && (
+        <button className='float-right' onClick={retry}>
+          Retry
+        </button>
+      )}
+    </p>
+  )
 }
 
 export const BlogInner = ({
@@ -42,8 +68,7 @@ export const BlogInner = ({
       updated,
       url
     }
-  },
-  error
+  }
 }) => (
   <Fragment>
     <h3>{name}</h3>
@@ -57,9 +82,9 @@ export const BlogInner = ({
       <br />
       Post count: {posts}
       <br />
-      Last updated: {posts === 0 ? 'Never' : `${unix(updated).fromNow()}`}
+      Last updated: {updated === 0 ? 'Never' : `${unix(updated).fromNow()}`}
     </p>
-    <p>
+    <p className='description'>
       Description:
       <br />
       {description || '[No description provided]'}
@@ -80,5 +105,6 @@ BlogInner.propTypes = {
       url: PropTypes.string.isRequired
     }).isRequired
   }),
-  error: PropTypes.string
+  error: PropTypes.string,
+  apiError: PropTypes.string
 }
