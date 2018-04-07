@@ -7,14 +7,15 @@ export class Fetch extends Component {
 
     this.state = {
       data: null,
-      hasError: false,
+      error: null,
       isLoading: true
     }
   }
 
   componentDidMount () {
-    this.props
-      .request()
+    const { request, requestArgs } = this.props
+
+    request(...requestArgs)
       .then(data => {
         console.log(data)
 
@@ -24,22 +25,45 @@ export class Fetch extends Component {
         })
       })
       .catch(err => {
-        console.error(err)
+        console.error(err.message)
+
         this.setState({
-          hasError: true,
+          error: err.message,
           isLoading: false
         })
       })
   }
 
+  retry () {
+    this.setState(
+      {
+        data: null,
+        error: null,
+        isLoading: true
+      },
+      () => this.componentDidMount()
+    )
+  }
+
   render () {
-    const { data, hasError, isLoading } = this.state
-    const { child: Child, onError: Error, onLoading: Loading } = this.props
+    const { data, error, isLoading } = this.state
+    const {
+      child: Child,
+      onError: Error,
+      onLoading: Loading,
+      requestArgs
+    } = this.props
 
     if (isLoading) {
       return <Loading />
-    } else if (hasError || (data && data.error)) {
-      return <Error />
+    } else if (error) {
+      return (
+        <Error
+          requestArgs={requestArgs}
+          error={error}
+          retry={() => this.retry()}
+        />
+      )
     } else {
       return (
         <Fragment>
@@ -54,10 +78,16 @@ Fetch.propTypes = {
   child: PropTypes.func.isRequired,
   onError: PropTypes.func,
   onLoading: PropTypes.func,
-  request: PropTypes.func.isRequired
+  request: PropTypes.func.isRequired,
+  requestArgs: PropTypes.array.isRequired
 }
 
 Fetch.defaultProps = {
   onError: () => <span>Error! Please report this issue.</span>,
-  onLoading: () => <span>Loading...</span>
+  onLoading: () => <span>Loading...</span>,
+  request: () =>
+    new Promise((resolve, reject) => {
+      reject(new Error('No request function passed to Fetch'))
+    }),
+  requestArgs: []
 }
