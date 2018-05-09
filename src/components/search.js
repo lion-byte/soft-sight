@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
+
 import { Blog } from './blog'
 
-export class Search extends Component {
+export class Search extends PureComponent {
   constructor (props) {
     super(props)
 
@@ -9,18 +10,13 @@ export class Search extends Component {
       prevSearches: [],
       text: ''
     }
+
+    this.handleChange = this.handleChange.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
   }
 
   handleChange (e) {
     this.setState({ text: e.target.value })
-  }
-
-  isInvalidSearch (input) {
-    if (input === '') {
-      return true
-    } else {
-      return false
-    }
   }
 
   onSubmit (e) {
@@ -32,7 +28,7 @@ export class Search extends Component {
       .split(' ')
       .join('-')
 
-    if (this.isInvalidSearch(text)) {
+    if (text === '') {
       return
     }
 
@@ -40,8 +36,6 @@ export class Search extends Component {
       if (prevState.prevSearches.includes(text)) {
         return {}
       }
-
-      console.log(`Searching for: ${text}`)
 
       return {
         prevSearches: [text, ...prevState.prevSearches],
@@ -52,15 +46,17 @@ export class Search extends Component {
 
   render () {
     const { prevSearches, text } = this.state
+
     return (
       <section className='search'>
-        <form onSubmit={e => this.onSubmit(e)} className='clearfix'>
+        <form onSubmit={this.onSubmit} className='clearfix'>
           <input
             type='text'
-            onChange={e => this.handleChange(e)}
+            onChange={this.handleChange}
             placeholder='Check if Tumblr blog is explicit'
             value={text}
           />
+
           <span className='float-left'>
             <p>
               <i>
@@ -68,6 +64,7 @@ export class Search extends Component {
               </i>
             </p>
           </span>
+
           <button className='float-right'>Check</button>
         </form>
 

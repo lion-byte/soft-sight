@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from 'react'
+import React, { Fragment, PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-export class Fetch extends Component {
+export class Fetch extends PureComponent {
   constructor (props) {
     super(props)
 
@@ -79,15 +79,10 @@ Fetch.propTypes = {
   onError: PropTypes.func,
   onLoading: PropTypes.func,
   request: PropTypes.func.isRequired,
-  requestArgs: PropTypes.array.isRequired
+  requestArgs: PropTypes.arrayOf(PropTypes.any).isRequired
 }
 
 Fetch.defaultProps = {
   onError: () => <span>Error! Please report this issue.</span>,
-  onLoading: () => <span>Loading...</span>,
-  request: () =>
-    new Promise((resolve, reject) => {
-      reject(new Error('No request function passed to Fetch'))
-    }),
-  requestArgs: []
+  onLoading: () => <span>Loading...</span>
 }

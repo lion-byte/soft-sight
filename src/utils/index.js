@@ -25,7 +25,8 @@ export const requestBlogInfo = blogName =>
       .catch(reject)
   })
 
-export const sleep = ms =>
-  new Promise(resolve => {
+export const sleep = ms => {
+  return new Promise(resolve => {
     setTimeout(resolve, ms)
   })
+}

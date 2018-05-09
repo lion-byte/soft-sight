@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import { Fetch } from './fetch'
@@ -22,12 +22,16 @@ Blog.propTypes = {
   blogName: PropTypes.string.isRequired
 }
 
-export const BlogLoading = () => (
-  <Fragment>
-    <h3>Loading...</h3>
-    <Loading />
-  </Fragment>
-)
+export class BlogLoading extends PureComponent {
+  render () {
+    return (
+      <Fragment>
+        <h3>Loading...</h3>
+        <Loading />
+      </Fragment>
+    )
+  }
+}
 
 export const BlogError = ({ requestArgs: [blogName], error = '', retry }) => {
   let errorText = error
