@@ -13,3 +13,5 @@ export const Loading = props => (
     <section className='sk-cube sk-cube9' />
   </section>
 )
+
+export default Loading

@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'gatsby'
 
 /**
- *
  * @param {object} props
  * @param {string} props.className
  * @param {boolean} [props.external]

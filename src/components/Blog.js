@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react'
 import { unix } from 'moment'
 
-import Fetch from './Fetch'
-import { Loading } from './loading'
 import { requestBlogInfo } from '../utils'
+import Fetch from './Fetch'
+import Loading from './Loading'
 
 /**
  * @param {object} props
