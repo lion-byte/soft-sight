@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Loading = () => (
+export const Loading = props => (
   <section className='sk-cube-grid'>
     <section className='sk-cube sk-cube1' />
     <section className='sk-cube sk-cube2' />
@@ -13,3 +13,5 @@ export const Loading = () => (
     <section className='sk-cube sk-cube9' />
   </section>
 )
+
+export default Loading

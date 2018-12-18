@@ -2,7 +2,9 @@ const { config } = require('dotenv')
 
 config()
 
-const { client: { getBlogInfo } } = require('./utils')
+const {
+  client: { getBlogInfo }
+} = require('./utils')
 
 exports.handler = (event, context, callback) => {
   if (event.httpMethod === 'POST') {

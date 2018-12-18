@@ -1,5 +1,4 @@
 import React, { Fragment, PureComponent } from 'react'
-import PropTypes from 'prop-types'
 
 export class Fetch extends PureComponent {
   constructor (props) {
@@ -13,6 +12,10 @@ export class Fetch extends PureComponent {
   }
 
   componentDidMount () {
+    this.runRequest()
+  }
+
+  runRequest () {
     const { request, requestArgs } = this.props
 
     request(...requestArgs)
@@ -41,7 +44,7 @@ export class Fetch extends PureComponent {
         error: null,
         isLoading: true
       },
-      () => this.componentDidMount()
+      () => this.runRequest()
     )
   }
 
@@ -74,13 +77,7 @@ export class Fetch extends PureComponent {
   }
 }
 
-Fetch.propTypes = {
-  child: PropTypes.func.isRequired,
-  onError: PropTypes.func,
-  onLoading: PropTypes.func,
-  request: PropTypes.func.isRequired,
-  requestArgs: PropTypes.arrayOf(PropTypes.any).isRequired
-}
+export default Fetch
 
 Fetch.defaultProps = {
   onError: () => <span>Error! Please report this issue.</span>,

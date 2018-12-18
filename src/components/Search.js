@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 
-import { Blog } from './blog'
+import Blog from './Blog'
 
 export class Search extends PureComponent {
   constructor (props) {
@@ -69,9 +69,13 @@ export class Search extends PureComponent {
         </form>
 
         <section className='results'>
-          {prevSearches.map(name => <Blog key={name} blogName={name} />)}
+          {prevSearches.map(name => (
+            <Blog key={name} blogName={name} />
+          ))}
         </section>
       </section>
     )
   }
 }
+
+export default Search

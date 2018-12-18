@@ -1,14 +1,16 @@
-import React, { Fragment } from 'react'
-import { Search } from '../components/search'
+import React from 'react'
 
-const HomePage = () => (
-  <Fragment>
+import Layout from '../components/Layout'
+import Search from '../components/Search'
+
+const HomePage = props => (
+  <Layout>
     <section className='splash'>
       <h2>Welcome to Soft Sight!</h2>
     </section>
 
     <Search />
-  </Fragment>
+  </Layout>
 )
 
 export default HomePage

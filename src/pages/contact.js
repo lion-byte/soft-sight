@@ -1,7 +1,9 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
-const ContactPage = () => (
-  <Fragment>
+import Layout from '../components/Layout'
+
+const ContactPage = props => (
+  <Layout>
     <section className='splash'>
       <h2>Contact</h2>
     </section>
@@ -10,7 +12,7 @@ const ContactPage = () => (
       Feature requests and questions can be sent to{' '}
       <a href='mailto:mark@lion-byte.com'>mark@lion-byte.com</a>.
     </p>
-  </Fragment>
+  </Layout>
 )
 
 export default ContactPage

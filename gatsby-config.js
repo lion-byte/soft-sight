@@ -1,3 +1,5 @@
+const proxy = require('http-proxy-middleware')
+
 module.exports = {
   siteMetadata: {
     author: 'Mark Hernandez',
@@ -8,11 +10,17 @@ module.exports = {
     'gatsby-plugin-catch-links',
     'gatsby-plugin-less',
     'gatsby-plugin-react-helmet',
-    'gatsby-plugin-react-next',
     'gatsby-plugin-netlify' // must be last
   ],
-  proxy: {
-    prefix: '/api',
-    url: 'http://localhost:9000'
+  developMiddleware: app => {
+    app.use(
+      '/.netlify/functions/',
+      proxy({
+        target: 'http://localhost:9000',
+        pathRewrite: {
+          '/.netlify/functions/': ''
+        }
+      })
+    )
   }
 }

@@ -2,10 +2,7 @@ import { create } from 'axios'
 
 export const instance = () =>
   create({
-    baseURL:
-      process.env.NODE_ENV === 'production'
-        ? '/.netlify/functions/api'
-        : '/api/',
+    baseURL: '/.netlify/functions/api',
     timeout: 10000
   })
 
@@ -25,8 +22,4 @@ export const requestBlogInfo = blogName =>
       .catch(reject)
   })
 
-export const sleep = ms => {
-  return new Promise(resolve => {
-    setTimeout(resolve, ms)
-  })
-}
+export const sleep = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms))
