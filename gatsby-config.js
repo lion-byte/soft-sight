@@ -8,7 +8,6 @@ module.exports = {
     'gatsby-plugin-catch-links',
     'gatsby-plugin-less',
     'gatsby-plugin-react-helmet',
-    'gatsby-plugin-react-next',
     'gatsby-plugin-netlify' // must be last
   ],
   proxy: {

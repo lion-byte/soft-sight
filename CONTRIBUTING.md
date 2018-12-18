@@ -12,12 +12,12 @@ Make sure that you have the [StandardJS](https://standardjs.com/#are-there-text-
 
 ## Scripts
 
-* `npm run build` - Compiles `src` and outputs to `dist`
-* `npm run dev` - Watches `src` and rebuilds on file changes
-* `npm run lint` - Runs `standard` linter and outputs style errors. Used in `npm test`
-* `npm run lint:fix` - Fixes _most_ of the style errors
-* `npm run report` - Ran after `npm test` and creates a code coverage report
-* `npm test` - Runs linter and test suite with code coverage details
+- `npm run build` - Compiles `src` and outputs to `dist`
+- `npm run dev` - Watches `src` and rebuilds on file changes
+- `npm run lint` - Runs `standard` linter and outputs style errors. Used in `npm test`
+- `npm run lint:fix` - Fixes _most_ of the style errors
+- `npm run report` - Ran after `npm test` and creates a code coverage report
+- `npm test` - Runs linter and test suite with code coverage details
 
 ## Local Testing
 
