@@ -1,28 +1,35 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
-import Link from 'gatsby-link'
+import React from 'react'
+import { Link } from 'gatsby'
 
-export const NavLink = ({ className, external, label, path }) =>
-  external ? (
-    <a
-      className={`${className || ' button button-outline'}`}
-      href={path}
-      target='_blank'
-      rel='noopener noreferrer'
-    >
-      {label}
-    </a>
-  ) : (
-    <Link className={`${className || ' button button-outline'}`} to={path}>
-      {label}
-    </Link>
-  )
+/**
+ *
+ * @param {object} props
+ * @param {string} props.className
+ * @param {boolean} [props.external]
+ * @param {string} props.label
+ * @param {string} props.path
+ */
+export const NavLink = props => {
+  const { className, external, label, path } = props
 
-NavLink.propTypes = {
-  className: PropTypes.string,
-  external: PropTypes.bool,
-  label: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired
+  if (external) {
+    return (
+      <a
+        className={`${className || ' button button-outline'}`}
+        href={path}
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        {label}
+      </a>
+    )
+  } else {
+    return (
+      <Link className={`${className || ' button button-outline'}`} to={path}>
+        {label}
+      </Link>
+    )
+  }
 }
 
 NavLink.defaultProps = {
@@ -31,27 +38,29 @@ NavLink.defaultProps = {
   path: '/'
 }
 
-export class Header extends PureComponent {
-  render () {
-    const { className } = this.props
+/**
+ * @param {object} props
+ * @param {string} props.className
+ */
+export const Header = props => {
+  const { className } = props
 
-    return (
-      <header className={className || ''}>
-        <nav className='column'>
-          <NavLink
-            className='title button button-clear'
-            label='Soft Sight'
-            path='/'
-          />
-          <NavLink label='Home' path='/' />
-          <NavLink label='Contact' path='/contact' />
-          <NavLink
-            label='GitHub'
-            path='https://github.com/lion-byte/soft-sight'
-            external
-          />
-        </nav>
-      </header>
-    )
-  }
+  return (
+    <header className={className || ''}>
+      <nav className='column'>
+        <NavLink
+          className='title button button-clear'
+          label='Soft Sight'
+          path='/'
+        />
+        <NavLink label='Home' path='/' />
+        <NavLink label='Contact' path='/contact' />
+        <NavLink
+          label='GitHub'
+          path='https://github.com/lion-byte/soft-sight'
+          external
+        />
+      </nav>
+    </header>
+  )
 }

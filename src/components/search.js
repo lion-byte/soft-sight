@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 
-import { Blog } from './blog'
+import Blog from './Blog'
 
 export class Search extends PureComponent {
   constructor (props) {
@@ -77,3 +77,5 @@ export class Search extends PureComponent {
     )
   }
 }
+
+export default Search

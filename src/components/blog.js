@@ -1,36 +1,39 @@
-import React, { Fragment, PureComponent } from 'react'
-import PropTypes from 'prop-types'
-
-import { Fetch } from './fetch'
-import { Loading } from './loading'
-import { requestBlogInfo } from '../utils'
+import React, { Fragment } from 'react'
 import { unix } from 'moment'
 
-export const Blog = ({ blogName }) => (
-  <section className='blog'>
-    <Fetch
-      request={requestBlogInfo}
-      requestArgs={[blogName]}
-      child={BlogInner}
-      onLoading={BlogLoading}
-      onError={BlogError}
-    />
-  </section>
-)
+import Fetch from './Fetch'
+import { Loading } from './loading'
+import { requestBlogInfo } from '../utils'
 
-Blog.propTypes = {
-  blogName: PropTypes.string.isRequired
+/**
+ * @param {object} props
+ * @param {string} props.blogName
+ */
+export const Blog = props => {
+  const { blogName } = props
+
+  return (
+    <section className='blog'>
+      <Fetch
+        request={requestBlogInfo}
+        requestArgs={[blogName]}
+        child={BlogInner}
+        onLoading={BlogLoading}
+        onError={BlogError}
+      />
+    </section>
+  )
 }
 
-export class BlogLoading extends PureComponent {
-  render () {
-    return (
-      <Fragment>
-        <h3>Loading...</h3>
-        <Loading />
-      </Fragment>
-    )
-  }
+export default Blog
+
+export const BlogLoading = props => {
+  return (
+    <Fragment>
+      <h3>Loading...</h3>
+      <Loading />
+    </Fragment>
+  )
 }
 
 export const BlogError = ({ requestArgs: [blogName], error = '', retry }) => {
@@ -95,20 +98,3 @@ export const BlogInner = ({
     </p>
   </Fragment>
 )
-
-BlogInner.propTypes = {
-  data: PropTypes.shape({
-    blog: PropTypes.shape({
-      description: PropTypes.string.isRequired,
-      is_adult: PropTypes.bool.isRequired,
-      is_nsfw: PropTypes.bool.isRequired,
-      name: PropTypes.string.isRequired,
-      posts: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      updated: PropTypes.number.isRequired,
-      url: PropTypes.string.isRequired
-    }).isRequired
-  }),
-  error: PropTypes.string,
-  apiError: PropTypes.string
-}
