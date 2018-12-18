@@ -8,8 +8,8 @@ module.exports = {
   },
   plugins: [
     'gatsby-plugin-catch-links',
-    'gatsby-plugin-less',
     'gatsby-plugin-react-helmet',
+    'gatsby-plugin-styled-components',
     'gatsby-plugin-netlify' // must be last
   ],
   developMiddleware: app => {

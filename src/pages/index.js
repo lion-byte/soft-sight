@@ -5,9 +5,7 @@ import Search from '../components/Search'
 
 const HomePage = props => (
   <Layout>
-    <section className='splash'>
-      <h2>Welcome to Soft Sight!</h2>
-    </section>
+    <h1>Welcome to Soft Sight!</h1>
 
     <Search />
   </Layout>

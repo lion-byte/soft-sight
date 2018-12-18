@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
+import styled from 'styled-components'
 
 /**
  * @param {object} props
@@ -37,15 +38,18 @@ NavLink.defaultProps = {
   path: '/'
 }
 
-/**
- * @param {object} props
- * @param {string} props.className
- */
-export const Header = props => {
-  const { className } = props
+const HeaderStyles = styled.header`
+  background-color: aliceblue;
+  box-shadow: 0 0 0.75em rgba(0, 0, 0, 0.5);
 
+  .button {
+    margin: 1em;
+  }
+`
+
+export const Header = props => {
   return (
-    <header className={className || ''}>
+    <HeaderStyles>
       <nav className='column'>
         <NavLink
           className='title button button-clear'
@@ -60,7 +64,7 @@ export const Header = props => {
           external
         />
       </nav>
-    </header>
+    </HeaderStyles>
   )
 }
 

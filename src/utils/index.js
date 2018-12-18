@@ -1,25 +1,18 @@
-import { create } from 'axios'
+export const apiEndpoint = '/.netlify/functions/api'
 
-export const instance = () =>
-  create({
-    baseURL: '/.netlify/functions/api',
-    timeout: 10000
+export const requestBlogInfo = async blogName => {
+  const response = await window.fetch(apiEndpoint, {
+    method: 'post',
+    body: JSON.stringify({ blogName })
   })
 
-export const requestBlogInfo = blogName =>
-  new Promise((resolve, reject) => {
-    instance()
-      .post('', {
-        blogName
-      })
-      .then(({ data }) => {
-        if (data.apiError) {
-          throw new Error(data.apiError)
-        }
+  const data = await response.json()
 
-        resolve(data)
-      })
-      .catch(reject)
-  })
+  if (data.apiError) {
+    throw Error(data.apiError)
+  }
+
+  return data
+}
 
 export const sleep = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms))

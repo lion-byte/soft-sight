@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { unix } from 'moment'
+import styled from 'styled-components'
 
 import { requestBlogInfo } from '../utils'
 import Fetch from './Fetch'
@@ -13,26 +14,36 @@ export const Blog = props => {
   const { blogName } = props
 
   return (
-    <section className='blog'>
-      <Fetch
-        request={requestBlogInfo}
-        requestArgs={[blogName]}
-        child={BlogInner}
-        onLoading={BlogLoading}
-        onError={BlogError}
-      />
-    </section>
+    <Fetch
+      request={requestBlogInfo}
+      requestArgs={[blogName]}
+      child={BlogInner}
+      onLoading={BlogLoading}
+      onError={BlogError}
+    />
   )
 }
 
 export default Blog
 
+const BlogStyles = styled.section`
+  border-top: 0.125em solid rgba(98, 185, 183, 1);
+  border-bottom: 0.125em solid rgba(98, 185, 183, 1);
+  margin: 2em 0;
+  padding: 1em 0 0 0;
+
+  .description {
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+  }
+`
+
 export const BlogLoading = props => {
   return (
-    <Fragment>
+    <BlogStyles>
       <h3>Loading...</h3>
       <Loading />
-    </Fragment>
+    </BlogStyles>
   )
 }
 
@@ -48,53 +59,66 @@ export const BlogError = ({ requestArgs: [blogName], error = '', retry }) => {
   }
 
   return (
-    <p className='clearfix'>
-      <span className='float-left'>
-        Sorry, could not find Tumblr blog: <u>{blogName}</u>.
-        <br />
-        {errorText}
-      </span>
-      {allowRetry && (
-        <button className='float-right' onClick={retry}>
-          Retry
-        </button>
-      )}
-    </p>
+    <BlogStyles>
+      <p className='clearfix'>
+        <span className='float-left'>
+          Sorry, could not find Tumblr blog: <u>{blogName}</u>.
+          <br />
+          {errorText}
+        </span>
+
+        {allowRetry && (
+          <button className='float-right' onClick={retry}>
+            Retry
+          </button>
+        )}
+      </p>
+    </BlogStyles>
   )
 }
 
-export const BlogInner = ({
-  data: {
-    blog: {
-      description,
-      is_adult: isAdult,
-      is_nsfw: isNSFW,
-      name,
-      posts,
-      title,
-      updated,
-      url
+export const BlogInner = props => {
+  const {
+    data: {
+      blog: {
+        description,
+        is_adult: isAdult,
+        is_nsfw: isNSFW,
+        name,
+        posts,
+        title,
+        updated,
+        url
+      }
     }
-  }
-}) => (
-  <Fragment>
-    <h3>{name}</h3>
-    <p>
-      <b>{isAdult || isNSFW ? '' : 'Not'} NSFW</b>
-    </p>
-    <p>
-      Title: {title || '[No title provided]'}
-      <br />
-      Url: {url}
-      <br />
-      Post count: {posts}
-      <br />
-      Last updated: {updated === 0 ? 'Never' : `${unix(updated).fromNow()}`}
-    </p>
-    <p className='description'>
-      Description:
-      <br />
-      {description || '[No description provided]'}
-    </p>
-  </Fragment>
-)
+  } = props
+
+  const isExplicit = isAdult || isNSFW
+  const timeSinceUpdate = updated === 0 ? 'Never' : unix(updated).fromNow()
+
+  return (
+    <BlogStyles>
+      <h3>{name}</h3>
+
+      <p>
+        <b>{isExplicit ? '' : 'Not '}NSFW</b>
+      </p>
+
+      <p>
+        Title: {title || '[No title provided]'}
+        <br />
+        URL: {url}
+        <br />
+        Post count: {posts}
+        <br />
+        Last updated: {timeSinceUpdate}
+      </p>
+
+      <p className='description'>
+        Description:
+        <br />
+        {description || '[No description provided]'}
+      </p>
+    </BlogStyles>
+  )
+}

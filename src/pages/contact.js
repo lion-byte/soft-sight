@@ -4,9 +4,7 @@ import Layout from '../components/Layout'
 
 const ContactPage = props => (
   <Layout>
-    <section className='splash'>
-      <h2>Contact</h2>
-    </section>
+    <h1>Contact</h1>
 
     <p>
       Feature requests and questions can be sent to{' '}

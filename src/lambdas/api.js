@@ -2,17 +2,14 @@ const { config } = require('dotenv')
 
 config()
 
-const {
-  client: { getBlogInfo }
-} = require('./utils')
+const { client } = require('./utils')
 
 exports.handler = (event, context, callback) => {
   if (event.httpMethod === 'POST') {
-    const { body: bodyText } = event
-    const { blogName } = JSON.parse(bodyText)
-    console.log(blogName)
+    const { blogName } = JSON.parse(event.body)
 
-    getBlogInfo(blogName)
+    client
+      .getBlogInfo(blogName)
       .then(data => {
         callback(null, {
           statusCode: 200,

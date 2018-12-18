@@ -1,6 +1,22 @@
 import React, { PureComponent } from 'react'
+import styled from 'styled-components'
 
 import Blog from './Blog'
+
+const SearchStyles = styled.section`
+  .form {
+    .options {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  .results {
+    margin: 2em 0;
+  }
+`
 
 export class Search extends PureComponent {
   constructor (props) {
@@ -48,8 +64,8 @@ export class Search extends PureComponent {
     const { prevSearches, text } = this.state
 
     return (
-      <section className='search'>
-        <form onSubmit={this.onSubmit} className='clearfix'>
+      <SearchStyles>
+        <form onSubmit={this.onSubmit} className='form'>
           <input
             type='text'
             onChange={this.handleChange}
@@ -57,15 +73,15 @@ export class Search extends PureComponent {
             value={text}
           />
 
-          <span className='float-left'>
+          <section className='options'>
             <p>
               <i>
                 Previous search results will be shown below the current search.
               </i>
             </p>
-          </span>
 
-          <button className='float-right'>Check</button>
+            <button>Check</button>
+          </section>
         </form>
 
         <section className='results'>
@@ -73,7 +89,7 @@ export class Search extends PureComponent {
             <Blog key={name} blogName={name} />
           ))}
         </section>
-      </section>
+      </SearchStyles>
     )
   }
 }
