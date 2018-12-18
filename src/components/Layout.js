@@ -2,7 +2,7 @@ import React from 'react'
 import Helmet from 'react-helmet'
 
 import '../styles/main.less'
-import { Header } from './header'
+import Header from './Header'
 
 export const Layout = ({ children }) => (
   <section className='layout-wrapper container'>
