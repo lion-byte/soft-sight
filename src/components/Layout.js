@@ -2,20 +2,20 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
 
+import Footer from './Footer'
 import Header from './Header'
 import Theme from './Theme'
 
 const LayoutStyles = styled.div`
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 850px;
 `
 
 const Main = styled.main`
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: ${props => props.theme.white};
   box-shadow: 0 0 0.75em rgba(0, 0, 0, 0.5);
-  margin: 4rem auto;
-  max-width: 850px;
-  min-height: 50vh;
+  margin: 2rem auto 3em auto;
+  min-height: 65vh;
   padding: 1em;
 
   h1 {
@@ -42,6 +42,8 @@ export const Layout = ({ children }) => (
       <Header />
 
       <Main>{children}</Main>
+
+      <Footer />
     </LayoutStyles>
   </Theme>
 )

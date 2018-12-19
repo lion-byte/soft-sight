@@ -29,8 +29,13 @@ export default Blog
 const BlogStyles = styled.section`
   border-top: 0.125em solid rgba(98, 185, 183, 1);
   border-bottom: 0.125em solid rgba(98, 185, 183, 1);
-  margin: 2em 0;
+  margin: 0 0 3em 0;
   padding: 1em 0 0 0;
+
+  h3,
+  p {
+    margin-top: 0;
+  }
 
   .description {
     overflow-wrap: break-word;
@@ -60,19 +65,13 @@ export const BlogError = ({ requestArgs: [blogName], error = '', retry }) => {
 
   return (
     <BlogStyles>
-      <p className='clearfix'>
-        <span className='float-left'>
-          Sorry, could not find Tumblr blog: <u>{blogName}</u>.
-          <br />
-          {errorText}
-        </span>
-
-        {allowRetry && (
-          <button className='float-right' onClick={retry}>
-            Retry
-          </button>
-        )}
+      <p>
+        Sorry, could not find Tumblr blog: <u>{blogName}</u>.
+        <br />
+        {errorText}
       </p>
+
+      <p>{allowRetry && <button onClick={retry}>Retry</button>}</p>
     </BlogStyles>
   )
 }
