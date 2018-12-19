@@ -1,4 +1,4 @@
-import React, { Fragment, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
 
 export class Fetch extends PureComponent {
   constructor (props) {
@@ -20,16 +20,12 @@ export class Fetch extends PureComponent {
 
     request(...requestArgs)
       .then(data => {
-        console.log(data)
-
         this.setState({
           data,
           isLoading: false
         })
       })
       .catch(err => {
-        console.error(err.message)
-
         this.setState({
           error: err.message,
           isLoading: false
@@ -68,11 +64,7 @@ export class Fetch extends PureComponent {
         />
       )
     } else {
-      return (
-        <Fragment>
-          <Child data={data} />
-        </Fragment>
-      )
+      return <Child data={data} />
     }
   }
 }

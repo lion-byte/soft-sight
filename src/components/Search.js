@@ -1,6 +1,32 @@
 import React, { PureComponent } from 'react'
+import styled from 'styled-components'
 
 import Blog from './Blog'
+
+const SearchStyles = styled.section`
+  .form {
+    display: flex;
+    flex-direction: column;
+
+    input[type='text'] {
+      border: 0.125em solid ${props => props.theme.accentColor};
+      border-radius: 0.2em;
+      height: 3.2em;
+      padding: 0.2em 1em;
+    }
+
+    .options {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  .results {
+    margin: 1em 0 2em 0;
+  }
+`
 
 export class Search extends PureComponent {
   constructor (props) {
@@ -48,24 +74,26 @@ export class Search extends PureComponent {
     const { prevSearches, text } = this.state
 
     return (
-      <section className='search'>
-        <form onSubmit={this.onSubmit} className='clearfix'>
+      <SearchStyles>
+        <form onSubmit={this.onSubmit} className='form'>
+          <label htmlFor='search-input'>Tumblr Username</label>
           <input
+            id='search-input'
             type='text'
             onChange={this.handleChange}
             placeholder='Check if Tumblr blog is explicit'
             value={text}
           />
 
-          <span className='float-left'>
+          <section className='options'>
             <p>
               <i>
                 Previous search results will be shown below the current search.
               </i>
             </p>
-          </span>
 
-          <button className='float-right'>Check</button>
+            <button>Check</button>
+          </section>
         </form>
 
         <section className='results'>
@@ -73,7 +101,7 @@ export class Search extends PureComponent {
             <Blog key={name} blogName={name} />
           ))}
         </section>
-      </section>
+      </SearchStyles>
     )
   }
 }

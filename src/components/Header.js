@@ -1,66 +1,42 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import styled from 'styled-components'
 
-/**
- * @param {object} props
- * @param {string} props.className
- * @param {boolean} [props.external]
- * @param {string} props.label
- * @param {string} props.path
- */
-export const NavLink = props => {
-  const { className, external, label, path } = props
+import NavLink from './NavLink'
 
-  if (external) {
-    return (
-      <a
-        className={`${className || ' button button-outline'}`}
-        href={path}
-        target='_blank'
-        rel='noopener noreferrer'
-      >
-        {label}
-      </a>
-    )
-  } else {
-    return (
-      <Link className={`${className || ' button button-outline'}`} to={path}>
-        {label}
-      </Link>
-    )
+const HeaderStyles = styled.header`
+  background-color: #fff;
+  box-shadow: 0 0 0.75em rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-family: ${props => props.theme.displayFont};
+  font-size: 1.25em;
+  justify-content: space-between;
+
+  a {
+    display: inline-block;
+    padding: 1ch 1.5ch;
+    text-decoration: none;
   }
-}
 
-NavLink.defaultProps = {
-  external: false,
-  label: 'Link',
-  path: '/'
-}
+  nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+`
 
-/**
- * @param {object} props
- * @param {string} props.className
- */
 export const Header = props => {
-  const { className } = props
-
   return (
-    <header className={className || ''}>
-      <nav className='column'>
-        <NavLink
-          className='title button button-clear'
-          label='Soft Sight'
-          path='/'
-        />
-        <NavLink label='Home' path='/' />
-        <NavLink label='Contact' path='/contact' />
-        <NavLink
-          label='GitHub'
-          path='https://github.com/lion-byte/soft-sight'
-          external
-        />
+    <HeaderStyles>
+      <NavLink path='/'>Soft Sight</NavLink>
+
+      <nav>
+        <NavLink path='/'>Home</NavLink>
+        <NavLink path='/contact'>Contact</NavLink>
       </nav>
-    </header>
+    </HeaderStyles>
   )
 }
 
