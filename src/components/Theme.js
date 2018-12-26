@@ -6,7 +6,7 @@ import 'typeface-roboto'
 const theme = {
   displayFont: `'Nunito', Arial, Helvetica, sans-serif`,
   baseFont: `'Roboto', Arial, Helvetica, sans-serif`,
-  primaryColor: '#e300a3;',
+  primaryColor: '#e300a3',
   accentColor: 'rgb(98, 185, 183)',
   black: '#535353',
   white: '#fefefe'
