@@ -1,5 +1,5 @@
 import React from 'react'
-import { unix } from 'moment'
+import { formatDistanceToNow } from 'date-fns'
 import styled from 'styled-components'
 
 import { requestBlogInfo } from '../utils'
@@ -43,7 +43,7 @@ const BlogStyles = styled.section`
   }
 `
 
-export const BlogLoading = props => (
+export const BlogLoading = () => (
   <BlogStyles>
     <h3>Loading...</h3>
     <Loading />
@@ -91,7 +91,10 @@ export const BlogInner = props => {
   } = props
 
   const isExplicit = isAdult || isNSFW
-  const timeSinceUpdate = updated === 0 ? 'Never' : unix(updated).fromNow()
+  const timeSinceUpdate =
+    updated === 0
+      ? 'Never'
+      : formatDistanceToNow(new Date(updated * 1000), { addSuffix: true })
 
   return (
     <BlogStyles>
