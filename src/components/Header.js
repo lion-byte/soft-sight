@@ -27,17 +27,15 @@ const HeaderStyles = styled.header`
   }
 `
 
-export const Header = props => {
-  return (
-    <HeaderStyles>
-      <NavLink path='/'>Soft Sight</NavLink>
+export const Header = props => (
+  <HeaderStyles>
+    <NavLink path='/'>Soft Sight</NavLink>
 
-      <nav>
-        <NavLink path='/'>Home</NavLink>
-        <NavLink path='/contact'>Contact</NavLink>
-      </nav>
-    </HeaderStyles>
-  )
-}
+    <nav>
+      <NavLink path='/'>Home</NavLink>
+      <NavLink path='/contact'>Contact</NavLink>
+    </nav>
+  </HeaderStyles>
+)
 
 export default Header

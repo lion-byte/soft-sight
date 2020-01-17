@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "module": "es6",
+    "moduleResolution": "node",
+    "plugins": [{ "name": "typescript-styled-plugin" }],
+    "noEmit": true,
+    "target": "esnext"
+  },
+  "exclude": [".cache/", "coverage/", "node_modules/", "public/", "lambda/"],
+  "include": ["types/*.d.ts", "**/*.js"]
+}

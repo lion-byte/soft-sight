@@ -1,9 +1,10 @@
 import React from 'react'
 import { Link } from 'gatsby'
+
 /**
  * @param {object} props
  * @param {any} props.children
- * @param {string} props.className
+ * @param {string} [props.className]
  * @param {boolean} [props.external]
  * @param {string} props.path
  */

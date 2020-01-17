@@ -38,14 +38,14 @@ export class Search extends PureComponent {
     }
 
     this.handleChange = this.handleChange.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange (e) {
     this.setState({ text: e.target.value })
   }
 
-  onSubmit (e) {
+  handleSubmit (e) {
     e.preventDefault()
 
     /* Trims surrounding whitespace and replaces inner-spaces with hyphens */
@@ -75,7 +75,7 @@ export class Search extends PureComponent {
 
     return (
       <SearchStyles>
-        <form onSubmit={this.onSubmit} className='form'>
+        <form onSubmit={this.handleSubmit} className='form'>
           <label htmlFor='search-input'>Tumblr Username</label>
           <input
             id='search-input'

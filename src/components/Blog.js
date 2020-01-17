@@ -43,14 +43,12 @@ const BlogStyles = styled.section`
   }
 `
 
-export const BlogLoading = props => {
-  return (
-    <BlogStyles>
-      <h3>Loading...</h3>
-      <Loading />
-    </BlogStyles>
-  )
-}
+export const BlogLoading = props => (
+  <BlogStyles>
+    <h3>Loading...</h3>
+    <Loading />
+  </BlogStyles>
+)
 
 export const BlogError = ({ requestArgs: [blogName], error = '', retry }) => {
   let errorText = error
