@@ -50,11 +50,23 @@ export function Search () {
         .replace(/ /g, '-')
         .toLowerCase()
 
-      if (!blogName || prevSearches.includes(blogName)) {
+      if (!blogName) {
         return
       }
 
-      setPrevSearches([blogName].concat(prevSearches))
+      if (prevSearches.includes(blogName)) {
+        const blogIndex = prevSearches.indexOf(blogName)
+
+        setPrevSearches(
+          [blogName].concat(
+            prevSearches.slice(0, blogIndex),
+            prevSearches.slice(blogIndex + 1)
+          )
+        )
+      } else {
+        setPrevSearches([blogName].concat(prevSearches))
+      }
+
       reset()
     },
     [prevSearches, reset]
@@ -67,6 +79,7 @@ export function Search () {
         <input
           id='search-input'
           type='text'
+          inputMode='search'
           placeholder='Check if Tumblr blog is explicit'
           name='blogName'
           autoComplete='off'
