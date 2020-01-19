@@ -1,7 +1,10 @@
-export const apiEndpoint = '/.netlify/functions/api'
+const apiEndpoint = '/.netlify/functions/api'
 
-export const requestBlogInfo = async blogName => {
-  const response = await window.fetch(apiEndpoint, {
+/**
+ * @param {string} blogName
+ */
+export async function requestBlogInfo (blogName) {
+  const response = await fetch(apiEndpoint, {
     method: 'post',
     body: JSON.stringify({ blogName })
   })
@@ -14,5 +17,3 @@ export const requestBlogInfo = async blogName => {
 
   return data
 }
-
-export const sleep = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms))

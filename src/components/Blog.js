@@ -1,32 +1,12 @@
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { formatDistanceToNow } from 'date-fns'
 import styled from 'styled-components'
 
 import { requestBlogInfo } from '../utils'
-import Fetch from './Fetch'
+import useAsync from './hooks/useAsync'
 import Loading from './Loading'
 
-/**
- * @param {object} props
- * @param {string} props.blogName
- */
-export const Blog = props => {
-  const { blogName } = props
-
-  return (
-    <Fetch
-      request={requestBlogInfo}
-      requestArgs={[blogName]}
-      child={BlogInner}
-      onLoading={BlogLoading}
-      onError={BlogError}
-    />
-  )
-}
-
-export default Blog
-
-const BlogStyles = styled.section`
+const BlogStyles = styled.article`
   border-top: 0.125em solid rgba(98, 185, 183, 1);
   border-bottom: 0.125em solid rgba(98, 185, 183, 1);
   margin: 0 0 3em 0;
@@ -43,12 +23,43 @@ const BlogStyles = styled.section`
   }
 `
 
-export const BlogLoading = () => (
-  <BlogStyles>
-    <h3>Loading...</h3>
-    <Loading />
-  </BlogStyles>
-)
+/**
+ * @param {object} props
+ * @param {string} props.blogName
+ */
+export const Blog = props => {
+  const { blogName } = props
+
+  const fetchData = useCallback(() => requestBlogInfo(blogName), [blogName])
+  const { loading, error, data, execute } = useAsync(fetchData)
+
+  useEffect(() => {
+    if (blogName) {
+      execute()
+    }
+  }, [blogName, execute])
+
+  if (loading) {
+    return (
+      <BlogStyles>
+        <h3>Loading...</h3>
+        <Loading />
+      </BlogStyles>
+    )
+  } else if (error) {
+    return (
+      <BlogError
+        requestArgs={[blogName]}
+        error={error.message}
+        retry={execute}
+      />
+    )
+  } else {
+    return <BlogInner data={data} />
+  }
+}
+
+export default Blog
 
 export const BlogError = ({ requestArgs: [blogName], error = '', retry }) => {
   let errorText = error
@@ -74,21 +85,34 @@ export const BlogError = ({ requestArgs: [blogName], error = '', retry }) => {
   )
 }
 
+/**
+ * @param {object} props
+ * @param {object} [props.data]
+ * @param {object} props.data.blog
+ * @param {string} props.data.blog.description
+ * @param {boolean} props.data.blog.is_adult
+ * @param {boolean} props.data.blog.is_nsfw
+ * @param {string} props.data.blog.name
+ * @param {number} props.data.blog.posts
+ * @param {string} props.data.blog.title
+ * @param {number} props.data.blog.updated
+ * @param {string} props.data.blog.url
+ */
 export const BlogInner = props => {
+  if (!props.data) {
+    return null
+  }
+
   const {
-    data: {
-      blog: {
-        description,
-        is_adult: isAdult,
-        is_nsfw: isNSFW,
-        name,
-        posts,
-        title,
-        updated,
-        url
-      }
-    }
-  } = props
+    description,
+    is_adult: isAdult,
+    is_nsfw: isNSFW,
+    name,
+    posts,
+    title,
+    updated,
+    url
+  } = props.data.blog
 
   const isExplicit = isAdult || isNSFW
   const timeSinceUpdate =

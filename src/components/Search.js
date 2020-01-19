@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Blog from './Blog'
 
 const SearchStyles = styled.section`
-  .form {
+  form {
     display: flex;
     flex-direction: column;
 
@@ -75,7 +75,7 @@ export class Search extends PureComponent {
 
     return (
       <SearchStyles>
-        <form onSubmit={this.handleSubmit} className='form'>
+        <form onSubmit={this.handleSubmit}>
           <label htmlFor='search-input'>Tumblr Username</label>
           <input
             id='search-input'
@@ -85,15 +85,15 @@ export class Search extends PureComponent {
             value={text}
           />
 
-          <section className='options'>
+          <div className='options'>
             <p>
               <i>
                 Previous search results will be shown below the current search.
               </i>
             </p>
 
-            <button>Check</button>
-          </section>
+            <button type='submit'>Check</button>
+          </div>
         </form>
 
         <section className='results'>

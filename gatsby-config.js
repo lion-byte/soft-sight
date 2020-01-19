@@ -12,7 +12,7 @@ module.exports = {
     'gatsby-plugin-styled-components',
     'gatsby-plugin-netlify' // must be last
   ],
-  developMiddleware: app => {
+  developMiddleware (app) {
     app.use(
       '/.netlify/functions/',
       proxy({
