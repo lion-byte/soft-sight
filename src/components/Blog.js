@@ -27,7 +27,7 @@ const BlogStyles = styled.article`
  * @param {object} props
  * @param {string} props.blogName
  */
-export const Blog = props => {
+export function Blog (props) {
   const { blogName } = props
 
   const fetchData = useCallback(() => requestBlogInfo(blogName), [blogName])
@@ -39,6 +39,8 @@ export const Blog = props => {
     }
   }, [blogName, execute])
 
+  const blog = data?.blog
+
   if (loading) {
     return (
       <BlogStyles>
@@ -48,58 +50,9 @@ export const Blog = props => {
     )
   } else if (error) {
     return (
-      <BlogError
-        requestArgs={[blogName]}
-        error={error.message}
-        retry={execute}
-      />
+      <BlogError blogName={blogName} error={error.message} retry={execute} />
     )
-  } else {
-    return <BlogInner data={data} />
-  }
-}
-
-export default Blog
-
-export const BlogError = ({ requestArgs: [blogName], error = '', retry }) => {
-  let errorText = error
-  let allowRetry = true
-
-  if (error.search(/404/g) !== -1) {
-    errorText = `This blog doesn't exist.`
-    allowRetry = false
-  } else if (error.search(/timeout/g) !== -1) {
-    errorText = `Check your network connection.`
-  }
-
-  return (
-    <BlogStyles>
-      <p>
-        Sorry, could not find Tumblr blog: <u>{blogName}</u>.
-        <br />
-        {errorText}
-      </p>
-
-      <p>{allowRetry && <button onClick={retry}>Retry</button>}</p>
-    </BlogStyles>
-  )
-}
-
-/**
- * @param {object} props
- * @param {object} [props.data]
- * @param {object} props.data.blog
- * @param {string} props.data.blog.description
- * @param {boolean} props.data.blog.is_adult
- * @param {boolean} props.data.blog.is_nsfw
- * @param {string} props.data.blog.name
- * @param {number} props.data.blog.posts
- * @param {string} props.data.blog.title
- * @param {number} props.data.blog.updated
- * @param {string} props.data.blog.url
- */
-export const BlogInner = props => {
-  if (!props.data) {
+  } else if (!blog) {
     return null
   }
 
@@ -112,13 +65,13 @@ export const BlogInner = props => {
     title,
     updated,
     url
-  } = props.data.blog
+  } = blog
 
   const isExplicit = isAdult || isNSFW
   const timeSinceUpdate =
     updated === 0
       ? 'Never'
-      : formatDistanceToNow(new Date(updated * 1000), { addSuffix: true })
+      : formatDistanceToNow(updated * 1000, { addSuffix: true })
 
   return (
     <BlogStyles>
@@ -129,7 +82,7 @@ export const BlogInner = props => {
       </p>
 
       <p>
-        Title: {title || '[No title provided]'}
+        Title: {title || '[No title given]'}
         <br />
         URL: {url}
         <br />
@@ -143,6 +96,46 @@ export const BlogInner = props => {
         <br />
         {description || '[No description provided]'}
       </p>
+    </BlogStyles>
+  )
+}
+
+export default Blog
+
+/**
+ * @param {object} props
+ * @param {string} props.blogName
+ * @param {string} props.error
+ * @param {() => void} [props.retry]
+ */
+export function BlogError (props) {
+  const { blogName, error = '', retry } = props
+
+  let errorText = error
+  let allowRetry = true
+
+  if (error.includes('404')) {
+    errorText = `This blog doesn't exist.`
+    allowRetry = false
+  } else if (error.includes('timeout')) {
+    errorText = 'Check your network connection.'
+  }
+
+  return (
+    <BlogStyles>
+      <p>
+        Sorry, could not find Tumblr blog: <u>{blogName}</u>.
+        <br />
+        {errorText}
+      </p>
+
+      {allowRetry && (
+        <p>
+          <button type='button' onClick={retry}>
+            Retry
+          </button>
+        </p>
+      )}
     </BlogStyles>
   )
 }
