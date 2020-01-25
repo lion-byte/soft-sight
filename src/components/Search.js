@@ -83,7 +83,7 @@ export function Search () {
           placeholder='Check if Tumblr blog is explicit'
           name='blogName'
           autoComplete='off'
-          ref={register}
+          ref={register({ required: true })}
           required
         />
 
